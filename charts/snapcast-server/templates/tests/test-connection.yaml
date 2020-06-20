@@ -7,9 +7,9 @@ metadata:
   annotations:
     "helm.sh/hook": test-success
 spec:
-  #containers:
-  #  - name: wget
-  #    image: busybox
-  #    command: ['wget']
-  #    args:  ['{{ include "snapcast-server.fullname" . }}:{{ .Values.ports.server.port }}']
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args:  ['{{ include "snapcast-server.fullname" . }}:{{ .Values.ports.server.port }}']
   restartPolicy: Never
