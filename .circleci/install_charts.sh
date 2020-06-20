@@ -8,7 +8,7 @@ readonly CT_VERSION=v2.4.1
 readonly KIND_VERSION=v0.5.0
 readonly CLUSTER_NAME=chart-testing
 # readonly K8S_VERSION=v1.15.3
-readonly ARCH=arm64
+readonly ARCH=amd64
 
 run_ct_container() {
     echo 'Running ct container...'
