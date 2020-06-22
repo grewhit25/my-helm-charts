@@ -1,0 +1,88 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "snapcast-server.fullname" . }}
+  labels:
+    {{- include "snapcast-server.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "snapcast-server.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "snapcast-server.selectorLabels" . | nindent 8 }}
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap-server-conf.yaml") . | sha256sum }}
+      {{- if .Values.podAnnotations }}
+          {{- toYaml .Values.podAnnotations | nindent 8 }}
+      {{- end }}
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      serviceAccountName: {{ include "snapcast-server.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+        {{- if .Values.avahiEnabled }}
+          - name: AVAHI
+            value: "{{ .Values.avahiEnabled }}"
+        {{- end }}
+        {{- range $key, $value := .Values.extraVars }}
+          - name: {{ $key }}
+            value: "{{ $value }}"
+        {{- end }}
+        {{- with .Values.ports }}
+          ports:
+          {{- range $key, $value := . }}
+            - name: "{{ $key }}"
+              containerPort: {{ $value.port }}
+              protocol: {{ default "TCP" $value.protocol }}
+          {{- end }}
+        {{- end }}  
+          livenessProbe:
+            exec:
+              command: [ "check", "run", "-type", "liveness" ]
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          readinessProbe:
+            exec:
+              command: [ "check", "run", "-type", "readiness" ]
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+          {{- if .Values.snapcast_serverConfig }}
+            - name: snapcast-server-config
+              mountPath: /etc/snapserver.conf
+              subPath: snapserver.conf
+              readOnly: true
+          {{- end }}
+      volumes:
+        {{- if .Values.snapcast_serverConfig }}
+        - name: snapcast-server-config
+          configMap:
+            name: {{ include "snapcast-server.fullname" . }}-file-config
+        {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
