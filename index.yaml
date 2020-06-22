@@ -3,6 +3,20 @@ entries:
   testapp:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2020-06-22T13:49:35.772651527Z"
+    description: A Helm chart for Kubernetes
+    digest: 7bee1ca074bf0bf2ad57e4404229f6a2be59bcd67906ac8dd482790f12eb2780
+    home: https://github.com/grewhit25/my-helm-charts
+    maintainers:
+    - email: grewhit25@gmail.com
+      name: grewhit25
+    name: testapp
+    type: application
+    urls:
+    - https://github.com/grewhit25/my-helm-charts/releases/download/testapp-0.1.5/testapp-0.1.5.tgz
+    version: 0.1.5
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2020-06-22T11:17:22.043974285Z"
     description: A Helm chart for Kubernetes
     digest: c2276ff8d61cf473c039e93641811fb356f1c12d22eb032331e02a1e518a98dc
