@@ -40,7 +40,6 @@ create_kind_cluster() {
     sudo mv kind /usr/local/bin/kind
 
     kind create cluster --name "$CLUSTER_NAME" --config .circleci/kind-config.yaml --image "kindest/node:$K8S_VERSION" --wait 60s
-    #kind create cluster --name "$CLUSTER_NAME" --config .circleci/kind-config.yaml --image "antoninbas/kindest-node:v1.17.4-arm64" --wait 60s
 
     docker_exec mkdir -p /root/.kube
 
