@@ -8,7 +8,7 @@ readonly CT_VERSION=v2.4.1
 readonly KIND_VERSION=v0.5.0
 readonly CLUSTER_NAME=chart-testing
 readonly K8S_VERSION=v1.15.3
-readonly ARCH=amd64
+readonly ARCH=arm64
 
 run_ct_container() {
     echo 'Running ct container...'
@@ -16,7 +16,7 @@ run_ct_container() {
         --volume "$(pwd)/.circleci/ct.yaml:/etc/ct/ct.yaml" \
         --volume "$(pwd):/workdir" \
         --workdir /workdir \
-        "quay.io/helmpack/chart-testing:$CT_VERSION" \
+        "docker.io/grewhit25/chart-testing-arm64" \
         cat
     echo
 }
@@ -39,7 +39,8 @@ create_kind_cluster() {
     chmod +x kind
     sudo mv kind /usr/local/bin/kind
 
-    kind create cluster --name "$CLUSTER_NAME" --config .circleci/kind-config.yaml --image "kindest/node:$K8S_VERSION" --wait 60s
+    #kind create cluster --name "$CLUSTER_NAME" --config .circleci/kind-config.yaml --image "kindest/node:$K8S_VERSION" --wait 60s
+    kind create cluster --name "$CLUSTER_NAME" --config .circleci/kind-config.yaml --image "antoninbas/kindest-node:v1.17.4-arm64" --wait 60s
 
     docker_exec mkdir -p /root/.kube
 
