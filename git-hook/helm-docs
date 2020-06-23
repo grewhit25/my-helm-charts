@@ -8,7 +8,7 @@ set -e
 #fi
 # helm-docs "${@}"
 DOCKER_COMMAND="podman run --rm -v /home/gxw/kubernetes/my-helm-charts/charts:/helm-docs grewhit25/helm-docs-arm"
-if ! $DOCKER_COMMAND; then
+if ! $DOCKER_COMMAND > /dev/null 2>&1; then
     echo "docker command fail"
     exit 1
 fi
