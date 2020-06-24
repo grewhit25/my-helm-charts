@@ -5,7 +5,8 @@
 replicaCount: 1
 
 image:
-  repository: docker.io/grewhit25/debian-snapserver
+  # repository: docker.io/grewhit25/debian-snapserver
+  repository: nolte/snapcast-server
   pullPolicy: Always
 
 imagePullSecrets: []

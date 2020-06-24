@@ -5,7 +5,8 @@
 replicaCount: 1
 
 image:
-  repository: docker.io/grewhit25/debian-snapclient
+  # repository: docker.io/grewhit25/debian-snapclient
+  repository: nolte/snapcast-client
   pullPolicy: Always
 
 imagePullSecrets: []

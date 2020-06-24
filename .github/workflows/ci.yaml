@@ -63,12 +63,6 @@ jobs:
           - v1.17.2
           - v1.18.2
     steps:
-      - name: Run some commands on arm64
-        id: runonarm64
-        uses: uraimo/run-on-arch-action@master
-        with:
-          architecture: aarch64
-          distribution: ubuntu20.04
       - name: Checkout
         uses: actions/checkout@v1
       - name: Create kind ${{ matrix.k8s }} cluster
