@@ -3,6 +3,20 @@ entries:
   snapcast-client:
   - apiVersion: v2
     appVersion: 1.20.0
+    created: "2020-06-27T21:26:14.715044794Z"
+    description: A Helm chart for Kubernetes
+    digest: 3c52d8ad04e8789fec5d41d78e9daca7a8325025ff8b7a26241714964a890bbd
+    home: https://github.com/grewhit25/my-helm-charts
+    maintainers:
+    - email: grewhit25@gmail.com
+      name: grewhit25
+    name: snapcast-client
+    type: application
+    urls:
+    - https://github.com/grewhit25/my-helm-charts/releases/download/snapcast-client-0.1.3/snapcast-client-0.1.3.tgz
+    version: 0.1.3
+  - apiVersion: v2
+    appVersion: 1.20.0
     created: "2020-06-23T11:57:30.953722468Z"
     description: A Helm chart for Kubernetes
     digest: f7749d001542e91e6ad2dc56b6dc94309a2a9f387c7599ba9547e9ec7e4b4a86
@@ -32,6 +46,20 @@ entries:
   snapcast-server:
   - apiVersion: v2
     appVersion: 0.20.0
+    created: "2020-06-27T21:26:14.809831245Z"
+    description: A Helm chart for Kubernetes
+    digest: 18c8bf54205f10b57afcb14a9fdaf86a180e9bb279e26c16fd2d4c7f372d3534
+    home: https://github.com/grewhit25/my-helm-charts
+    maintainers:
+    - email: grewhit25@gmail.com
+      name: grewhit25
+    name: snapcast-server
+    type: application
+    urls:
+    - https://github.com/grewhit25/my-helm-charts/releases/download/snapcast-server-0.1.6/snapcast-server-0.1.6.tgz
+    version: 0.1.6
+  - apiVersion: v2
+    appVersion: 0.20.0
     created: "2020-06-23T11:57:31.108872967Z"
     description: A Helm chart for Kubernetes
     digest: 6537cbed4db9b6621dd71fdb8b454f91b3c3a41bad0908a34f16b0f990e259f5
@@ -45,6 +73,22 @@ entries:
     - https://github.com/grewhit25/my-helm-charts/releases/download/snapcast-server-0.1.4/snapcast-server-0.1.4.tgz
     version: 0.1.4
   testapp:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2020-06-27T21:26:14.899465098Z"
+    description: A Helm chart for Kubernetes
+    digest: 064b2a218ca2936f661657eeb0178c9ad4d56d0893685c5a7a6103c1b21aa46a
+    home: https://github.com/grewhit25/my-helm-charts
+    maintainers:
+    - email: grewhit25@gmail.com
+      name: grewhit25
+    name: testapp
+    sources:
+    - https://github.com/grewhit25/my-helm-charts/testapp
+    type: application
+    urls:
+    - https://github.com/grewhit25/my-helm-charts/releases/download/testapp-0.2.5/testapp-0.2.5.tgz
+    version: 0.2.5
   - apiVersion: v2
     appVersion: 1.16.0
     created: "2020-06-24T07:39:41.306114601Z"
