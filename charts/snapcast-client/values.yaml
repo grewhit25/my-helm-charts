@@ -48,8 +48,16 @@ ingress:
   #      - chart-example.local
 
 extraVars:
-  PULSE_SOCKET: "unix:/var/run/pulse"
   TZ: "Europe/London"
+
+pulseaudio:
+  enabled: false
+  name: 'PULSE_SOCKET'
+  pulse_socket: 'unix:/var/run/pulse'
+  mounts:
+  - name: 'var-run-pulse'
+    mountpath: '/var/run/pulse'
+    hostpath: '/var/run/pulse'
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious

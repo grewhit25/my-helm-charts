@@ -28,6 +28,10 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
+        {{- if .Values.pulseaudio.enabled }}
+          - name: {{ .Values.pulseaudio.name }}
+            value: {{ .Values.pulseaudio.pulse_socket }}
+        {{ end }}
         {{- if .Values.extraVars }}
         {{- range $key, $value := .Values.extraVars }}
           - name: {{ $key }}
@@ -49,13 +53,21 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-          - name: var-run-pulse
-            mountPath: /var/run/pulse
+        {{- if .Values.pulseaudio.enabled }}
+        {{- range .Values.pulseaudio.mounts }}
+          - name: {{ .name | quote }}
+            mountPath: {{ .mountpath }}
+        {{ end }}
+        {{ end }}
       volumes:
+    {{- if .Values.pulseaudio.enabled }}
       - hostPath:
-          path: /var/run/pulse
+    {{- range .Values.pulseaudio.mounts }}
+          path: {{ .hostpath }}
           type: Directory
-        name: var-run-pulse
+        name: {{ .name | quote }}
+    {{ end }}
+    {{ end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
