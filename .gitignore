@@ -1,2 +1,3 @@
 .deploy
 git-hook/
+charts/eclipse-mosquitto/certs
