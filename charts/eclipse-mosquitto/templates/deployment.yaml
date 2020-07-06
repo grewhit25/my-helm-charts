@@ -1,0 +1,139 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "eclipse-mosquitto.fullname" . }}
+  labels:
+{{ include "eclipse-mosquitto.labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "eclipse-mosquitto.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "eclipse-mosquitto.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- if .Values.securityContext.enabled }}
+      securityContext:
+        fsGroup: {{ .Values.securityContext.fsGroup }}
+        runAsUser: {{ .Values.securityContext.runAsUser }}
+    {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+        {{- range $key, $value := .Values.extraVars }}
+            - name: {{ $key }}
+              value: {{ $value }}
+        {{- end }}
+          ports:
+          - name: {{ .Values.ports.mqtt.name }}
+            containerPort: {{ .Values.ports.mqtt.port }}
+            protocol: "TCP"
+          - name: {{ .Values.ports.websocket.name }}
+            containerPort: {{ .Values.ports.websocket.port }}
+            protocol: "TCP"
+          livenessProbe:
+            exec:
+              command:
+              - sh
+              - /health/healthcheck.sh
+            failureThreshold: 2
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 5
+          readinessProbe:
+            exec:
+              command:
+              - sh
+              - /health/healthcheck.sh
+            failureThreshold: 3
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          volumeMounts:
+            - name: mosquitto-conf
+              mountPath: /mosquitto/config/mosquitto.conf
+              subPath: mosquitto.conf
+              readOnly: true
+            - name: mosquitto-data
+              mountPath: /mosquitto/data
+              subPath: mosquitto/data
+            - name: mqtt-healthzcheck
+              mountPath: /health/healthz
+              subPath: healthz
+            - name: mqtt-healthzscript
+              mountPath: /health/healthcheck.sh
+              subPath: healthzscript
+            - name: mosquitto-ca-cert
+              mountPath: /mosquitto/config/certs/ca.crt
+              subPath: ca.crt
+              readOnly: true
+            - name: mosquitto-server-cert
+              mountPath: /mosquitto/config/certs/server.crt
+              subPath: server.crt
+              readOnly: true
+            - name: mosquitto-server-key
+              mountPath: /mosquitto/config/certs/server.key
+              subPath: server.key
+              readOnly: true
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+      - name: mosquitto-ca-cert
+        configMap:
+          name: {{ include "eclipse-mosquitto.fullname" . }}-certs
+          items:
+            - key: ca.crt
+              path: ca.crt
+      - name: mosquitto-server-cert
+        configMap:
+          name: {{ include "eclipse-mosquitto.fullname" . }}-certs
+          items:
+              - key: server.crt
+                path: server.crt
+      - name: mosquitto-server-key
+        configMap:
+          name: {{ include "eclipse-mosquitto.fullname" . }}-certs
+          items:
+              - key: server.key
+                path: server.key
+      - name: mosquitto-conf
+        configMap:
+          name: {{ include "eclipse-mosquitto.fullname" . }}-config
+      - name: mqtt-healthzcheck
+        configMap:
+          name: {{ include "eclipse-mosquitto.fullname" . }}-config
+      - name: mqtt-healthzscript
+        configMap:
+          name: {{ include "eclipse-mosquitto.fullname" . }}-config
+          defaultMode: 0755
+      - name: mosquitto-data
+      {{- if .Values.persistence.enabled }}
+        persistentVolumeClaim:
+          claimName: {{ include "eclipse-mosquitto.fullname" . }}-pvc
+      {{- else }}
+        emptyDir: {}
+      {{- end -}}
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
