@@ -12,6 +12,9 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+hostNetwork: true
+avahiEnabled: true
+
 serviceAccount:
   # Specifies whether a service account should be created
   create: true
@@ -24,15 +27,15 @@ podSecurityContext: {}
 
 securityContext: {}
   # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
+    # drop:
+    # - ALL
   # runAsNonRoot: true
+  # runAsGroup: 1000
   # runAsUser: 1000
 
 service:
   type: ClusterIP
-  port: 80
+  port: 4713
 
 ingress:
   enabled: false
@@ -49,16 +52,36 @@ ingress:
 
 extraVars:
   TZ: "Europe/London"
+  LIVENESS_CHECK: "cat /health/healthz"
+  READINESS_CHECK: "cat /health/healthz"
 
 pulseaudio:
-  enabled: false
-  name: 'PULSE_SOCKET'
-  pulse_socket: 'unix:/var/run/pulse'
-  mounts:
-  - name: 'var-run-pulse'
-    mountpath: '/var/run/pulse'
-    hostpath: '/var/run/pulse'
+  enabled: true
+  name: 'PULSE_SERVER'
+  server: 'tcp:10.0.1.1:4713'
 
+  extraEnv: {}
+
+# Probes configuration
+probes:
+  liveness:
+    enabled: false
+    scheme: HTTP
+    initialDelaySeconds: 15
+    failureThreshold: 5
+    timeoutSeconds: 10
+  readiness:
+    enabled: false
+    scheme: HTTP
+    initialDelaySeconds: 15
+    failureThreshold: 5
+    timeoutSeconds: 10
+  startup:
+    enabled: false
+    scheme: HTTP
+    failureThreshold: 30
+    periodSeconds: 10
+ 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little

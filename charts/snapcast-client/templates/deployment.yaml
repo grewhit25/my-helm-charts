@@ -21,6 +21,10 @@ spec:
       serviceAccountName: {{ include "snapcast-client.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+    {{- if .Values.hostNetwork }}
+      hostNetwork: {{ .Values.hostNetwork }}
+      dnsPolicy: ClusterFirstWithHostNet
+    {{ end }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -28,9 +32,13 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
+        {{- if .Values.avahiEnabled }}
+          - name: ENABLEAVAHI
+            value: {{ .Values.avahiEnabled | quote }}
+        {{- end }}
         {{- if .Values.pulseaudio.enabled }}
           - name: {{ .Values.pulseaudio.name }}
-            value: {{ .Values.pulseaudio.pulse_socket }}
+            value: {{ .Values.pulseaudio.server }}
         {{ end }}
         {{- if .Values.extraVars }}
         {{- range $key, $value := .Values.extraVars }}
@@ -38,36 +46,31 @@ spec:
             value: "{{ $value }}"
         {{- end }}
         {{- end }}
-          ports:
-            - name: http
-              containerPort: 80
-              protocol: TCP
-          #livenessProbe:
-          #  httpGet:
-          #    path: /
-          #    port: http
-          #readinessProbe:
-          #  httpGet:
-          #    path: /
-          #    port: http
+        {{- if .Values.probes.liveness.enabled }}
+          livenessProbe:
+            exec:
+              command: [ "check", "run", "-type", "liveness" ]
+            initialDelaySeconds: {{ .Values.probes.liveness.initialDelaySeconds }}
+            failureThreshold: {{ .Values.probes.liveness.failureThreshold }}
+            timeoutSeconds: {{ .Values.probes.liveness.timeoutSeconds }}
+        {{- end }}
+        {{- if .Values.probes.readiness.enabled }}
+          readinessProbe:
+            exec:
+              command: [ "check", "run", "-type", "liveness" ]
+            initialDelaySeconds: {{ .Values.probes.readiness.initialDelaySeconds }}
+            failureThreshold: {{ .Values.probes.readiness.failureThreshold }}
+            timeoutSeconds: {{ .Values.probes.readiness.timeoutSeconds }}
+        {{- end }}
+        {{- if .Values.probes.startup.enabled }}
+          startupProbe:
+            exec:
+              command: [ "check", "run", "-type", "liveness" ]
+            failureThreshold: {{ .Values.probes.startup.failureThreshold }}
+            periodSeconds: {{ .Values.probes.startup.periodSeconds }}
+        {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          volumeMounts:
-        {{- if .Values.pulseaudio.enabled }}
-        {{- range .Values.pulseaudio.mounts }}
-          - name: {{ .name | quote }}
-            mountPath: {{ .mountpath }}
-        {{ end }}
-        {{ end }}
-      volumes:
-    {{- if .Values.pulseaudio.enabled }}
-      - hostPath:
-    {{- range .Values.pulseaudio.mounts }}
-          path: {{ .hostpath }}
-          type: Directory
-        name: {{ .name | quote }}
-    {{ end }}
-    {{ end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

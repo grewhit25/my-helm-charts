@@ -34,7 +34,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
         {{- if .Values.avahiEnabled }}
-          - name: AVAHI
+          - name: ENABLEAVAHI
             value: "{{ .Values.avahiEnabled }}"
         {{- end }}
         {{- range $key, $value := .Values.extraVars }}
