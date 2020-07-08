@@ -59,9 +59,9 @@ avahiEnabled: 'true'
 
 snapcast_serverConfig: |-
   [stream]
-  stream = "pipe:///output/mpd_fifo?name=tts&sampleformat=44100:16:2&codec=flac"
-  stream = "pipe:///output/mopidy_fifo?name=Mopidy&sampleformat=44100:16:2&codec=flac"
-  stream = "spotify:///librespot?name=Spotify&verbose&cache=/tmp&device=Snapcast&bitrate=320&initial-volume=75&sampleformat=44100:16:2&codec=flac"
+  stream = "pipe:///output/mpd_fifo?name=tts&initial-volume=60&sampleformat=44100:16:2&codec=flac"
+  stream = "pipe:///output/mopidy_fifo?name=Mopidy&initial-volume=60&sampleformat=44100:16:2&codec=flac"
+  stream = "spotify:///librespot?name=Spotify&verbose&cache=/tmp&device=Snapcast&bitrate=320&initial-volume=60&sampleformat=44100:16:2&codec=flac"
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious

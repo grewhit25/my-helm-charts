@@ -1,6 +1,6 @@
 # snapcast-client
 
-![Version: 0.1.5](https://img.shields.io/badge/Version-0.1.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.20.1](https://img.shields.io/badge/AppVersion-0.20.1-informational?style=flat-square)
+![Version: 0.1.6](https://img.shields.io/badge/Version-0.1.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.20.0](https://img.shields.io/badge/AppVersion-0.20.0-informational?style=flat-square)
 
 A Helm chart for Kubernetes
 
@@ -17,8 +17,12 @@ A Helm chart for Kubernetes
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | affinity | object | `{}` |  |
+| avahiEnabled | bool | `true` |  |
+| extraVars.LIVENESS_CHECK | string | `"cat /health/healthz"` |  |
+| extraVars.READINESS_CHECK | string | `"cat /health/healthz"` |  |
 | extraVars.TZ | string | `"Europe/London"` |  |
 | fullnameOverride | string | `""` |  |
+| hostNetwork | bool | `true` |  |
 | image.pullPolicy | string | `"Always"` |  |
 | image.repository | string | `"docker.io/grewhit25/debian-snapclient"` |  |
 | imagePullSecrets | list | `[]` |  |
@@ -30,16 +34,28 @@ A Helm chart for Kubernetes
 | nameOverride | string | `""` |  |
 | nodeSelector | object | `{}` |  |
 | podSecurityContext | object | `{}` |  |
-| pulseaudio.enabled | bool | `false` |  |
-| pulseaudio.mounts[0].hostpath | string | `"/var/run/pulse"` |  |
-| pulseaudio.mounts[0].mountpath | string | `"/var/run/pulse"` |  |
-| pulseaudio.mounts[0].name | string | `"var-run-pulse"` |  |
-| pulseaudio.name | string | `"PULSE_SOCKET"` |  |
-| pulseaudio.pulse_socket | string | `"unix:/var/run/pulse"` |  |
+| probes.liveness.enabled | bool | `false` |  |
+| probes.liveness.failureThreshold | int | `5` |  |
+| probes.liveness.initialDelaySeconds | int | `15` |  |
+| probes.liveness.scheme | string | `"HTTP"` |  |
+| probes.liveness.timeoutSeconds | int | `10` |  |
+| probes.readiness.enabled | bool | `false` |  |
+| probes.readiness.failureThreshold | int | `5` |  |
+| probes.readiness.initialDelaySeconds | int | `15` |  |
+| probes.readiness.scheme | string | `"HTTP"` |  |
+| probes.readiness.timeoutSeconds | int | `10` |  |
+| probes.startup.enabled | bool | `false` |  |
+| probes.startup.failureThreshold | int | `30` |  |
+| probes.startup.periodSeconds | int | `10` |  |
+| probes.startup.scheme | string | `"HTTP"` |  |
+| pulseaudio.enabled | bool | `true` |  |
+| pulseaudio.extraEnv | object | `{}` |  |
+| pulseaudio.name | string | `"PULSE_SERVER"` |  |
+| pulseaudio.server | string | `"tcp:10.0.1.1:4713"` |  |
 | replicaCount | int | `1` |  |
 | resources | object | `{}` |  |
 | securityContext | object | `{}` |  |
-| service.port | int | `80` |  |
+| service.port | int | `4713` |  |
 | service.type | string | `"ClusterIP"` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `nil` |  |

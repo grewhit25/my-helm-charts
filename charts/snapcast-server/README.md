@@ -1,6 +1,6 @@
 # snapcast-server
 
-![Version: 0.1.8](https://img.shields.io/badge/Version-0.1.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.20.1](https://img.shields.io/badge/AppVersion-0.20.1-informational?style=flat-square)
+![Version: 0.1.9](https://img.shields.io/badge/Version-0.1.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.20.0](https://img.shields.io/badge/AppVersion-0.20.0-informational?style=flat-square)
 
 A Helm chart for Kubernetes
 
@@ -40,5 +40,5 @@ A Helm chart for Kubernetes
 | service.type | string | `"ClusterIP"` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `nil` |  |
-| snapcast_serverConfig | string | `"[stream]\nstream = \"pipe:///output/mpd_fifo?name=tts&sampleformat=44100:16:2&codec=flac\"\nstream = \"pipe:///output/mopidy_fifo?name=Mopidy&sampleformat=44100:16:2&codec=flac\"\nstream = \"spotify:///librespot?name=Spotify&verbose&cache=/tmp&device=Snapcast&bitrate=320&initial-volume=75&sampleformat=44100:16:2&codec=flac\""` |  |
+| snapcast_serverConfig | string | `"[stream]\nstream = \"pipe:///output/mpd_fifo?name=tts&initial-volume=60&sampleformat=44100:16:2&codec=flac\"\nstream = \"pipe:///output/mopidy_fifo?name=Mopidy&initial-volume=60&sampleformat=44100:16:2&codec=flac\"\nstream = \"spotify:///librespot?name=Spotify&verbose&cache=/tmp&device=Snapcast&bitrate=320&initial-volume=60&sampleformat=44100:16:2&codec=flac\""` |  |
 | tolerations | list | `[]` |  |
