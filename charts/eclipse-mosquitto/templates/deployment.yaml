@@ -42,20 +42,18 @@ spec:
             containerPort: {{ .Values.ports.websocket.port }}
             protocol: "TCP"
           livenessProbe:
-            exec:
-              command:
-              - sh
-              - /health/healthcheck.sh
+            httpGet:
+              path: /healthz
+              port: 8091
             failureThreshold: 2
             initialDelaySeconds: 10
             periodSeconds: 30
             successThreshold: 1
             timeoutSeconds: 5
           readinessProbe:
-            exec:
-              command:
-              - sh
-              - /health/healthcheck.sh
+            httpGet:
+              path: /healthz
+              port: 8091
             failureThreshold: 3
             initialDelaySeconds: 10
             periodSeconds: 10
@@ -69,12 +67,6 @@ spec:
             - name: mosquitto-data
               mountPath: /mosquitto/data
               subPath: mosquitto/data
-            - name: mqtt-healthzcheck
-              mountPath: /health/healthz
-              subPath: healthz
-            - name: mqtt-healthzscript
-              mountPath: /health/healthcheck.sh
-              subPath: healthzscript
             - name: mosquitto-ca-cert
               mountPath: /mosquitto/config/certs/ca.crt
               subPath: ca.crt
@@ -87,6 +79,8 @@ spec:
               mountPath: /mosquitto/config/certs/server.key
               subPath: server.key
               readOnly: true
+        - name: liveness
+          image: "docker.io/grewhit25/healthcheck-server"
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
@@ -111,13 +105,6 @@ spec:
       - name: mosquitto-conf
         configMap:
           name: {{ include "eclipse-mosquitto.fullname" . }}-config
-      - name: mqtt-healthzcheck
-        configMap:
-          name: {{ include "eclipse-mosquitto.fullname" . }}-config
-      - name: mqtt-healthzscript
-        configMap:
-          name: {{ include "eclipse-mosquitto.fullname" . }}-config
-          defaultMode: 0755
       - name: mosquitto-data
       {{- if .Values.persistence.enabled }}
         persistentVolumeClaim:

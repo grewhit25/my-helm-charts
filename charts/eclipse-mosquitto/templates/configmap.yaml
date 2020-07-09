@@ -7,7 +7,3 @@ metadata:
 data:
   mosquitto.conf: |-
     {{- .Values.config | nindent 4 }}
-  healthz: |-
-    {{- .Values.healthz | nindent 4 }}
-  healthzscript: |-
-    {{- .Values.healthzscript | nindent 4 }}
