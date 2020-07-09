@@ -6,8 +6,8 @@ metadata:
 {{ include "eclipse-mosquitto.labels" . | indent 4 }}
 data:
   ca.crt: |-
-    {{- .Files.Get "certs/server-ca.crt" | nindent 4 }}
+    {{- .Values.certs.ca.crt | nindent 4 }}
   server.crt: |-
-    {{- .Files.Get "certs/server.crt"  | nindent 4 }}
+    {{- .Values.certs.server.crt  | nindent 4 }}
   server.key: |-
-    {{- .Files.Get "certs/server.key" | nindent 4 }}
+    {{- .Values.certs.server.key | nindent 4 }}

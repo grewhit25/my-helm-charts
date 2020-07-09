@@ -28,7 +28,7 @@ ports:
     protocol: TCP
 
 ingress:
-  enabled: false
+  enabled: true
   annotations:
     kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
@@ -60,16 +60,12 @@ tolerations: []
 
 affinity: {}
 
-extraVars:
-  http_dir: /health
+extraVars: {}
 
 config: |-
   persistence true
   persistence_location /mosquitto/data/
   log_dest stdout
-  log_type error
-  log_type warning
-  log_type information
   listener 1883
   listener 9001
   protocol websockets
@@ -78,7 +74,6 @@ config: |-
   keyfile /mosquitto/config/certs/server.key
   require_certificate true
   use_subject_as_username true
-  http_dir /health
 
 certs:
   ca:
@@ -117,14 +112,3 @@ securityContext:
   enabled: false
   runAsUser: 999
   fsGroup: 999
-
-## Custom healthcheck
-
-healthz: |-
-  "Hello World!"
-
-healthzscript: |-
-  #!/bin/sh
-  mosquitto_sub -i "ReadyLivenessProbe" -t '$SYS/#' -C 1 \
-  | grep -q -e "mosquitto version" \
-  > /dev/null 2>&1 || exit 1
