@@ -3,6 +3,19 @@ entries:
   eclipse-mosquitto:
   - apiVersion: v1
     appVersion: 1.6.10
+    created: "2020-07-09T15:39:26.188435074Z"
+    description: A Helm chart for Eclipse Mosquitto
+    digest: 6440520df7b941b48ee31ecd4a03cff3000b6adbda61947fec8d3c1c5c70417f
+    home: https://github.com/grewhit25/my-helm-charts
+    maintainers:
+    - email: grewhit25@gmail.com
+      name: grewhit25
+    name: eclipse-mosquitto
+    urls:
+    - https://github.com/grewhit25/my-helm-charts/releases/download/eclipse-mosquitto-1.0.3/eclipse-mosquitto-1.0.3.tgz
+    version: 1.0.3
+  - apiVersion: v1
+    appVersion: 1.6.10
     created: "2020-07-08T21:41:04.895400811Z"
     description: A Helm chart for Eclipse Mosquitto
     digest: 41268e2d14da621ca5716e8d57699abcda75301a59670cc48b4bec4451f98511
