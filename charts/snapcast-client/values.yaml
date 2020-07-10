@@ -58,7 +58,7 @@ extraVars:
 pulseaudio:
   enabled: true
   name: 'PULSE_SERVER'
-  server: 'tcp:10.0.1.1:4713'
+  server: 'tcp:127.0.0.1:4713'
 
   extraEnv: {}
 
