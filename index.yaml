@@ -40,6 +40,21 @@ entries:
     urls:
     - https://github.com/grewhit25/my-helm-charts/releases/download/eclipse-mosquitto-1.0.1/eclipse-mosquitto-1.0.1.tgz
     version: 1.0.1
+  hue-mqtt-bridge:
+  - apiVersion: v2
+    appVersion: 0.0.1
+    created: "2020-07-10T10:18:37.203693239Z"
+    description: A Helm chart for Kubernetes
+    digest: e0c57134918f9c5ede5689951b0899252a194e1afc31059200072fd6be35cfd0
+    home: https://github.com/grewhit25/my-helm-charts
+    maintainers:
+    - email: grewhit25@gmail.com
+      name: grewhit25
+    name: hue-mqtt-bridge
+    type: application
+    urls:
+    - https://github.com/grewhit25/my-helm-charts/releases/download/hue-mqtt-bridge-0.1.0/hue-mqtt-bridge-0.1.0.tgz
+    version: 0.1.0
   snapcast-client:
   - apiVersion: v2
     appVersion: 0.20.0
