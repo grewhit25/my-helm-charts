@@ -1,18 +1,16 @@
-# Default values for snapcast-server.
+# Default values for mpd.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
 
 image:
-  repository: docker.io/grewhit25/debian-snapserver
+  repository: docker.io/grewhit25/mpd
   pullPolicy: Always
 
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
-
-hostNetwork: true
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -33,10 +31,8 @@ securityContext: {}
   # runAsUser: 1000
 
 ports:
-  server:
-    port: 1705
-  client:
-    port: 1704
+  mpd:
+    port: 6600
 
 service:
   type: ClusterIP
@@ -54,18 +50,6 @@ ingress:
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
-
-extraVars:
-  LIVENESS_CHECK: "cat /health/healthz"
-  READINESS_CHECK: "cat /health/healthz"
-
-avahiEnabled: 'true'
-
-snapcast_serverConfig: |-
-  [stream]
-  stream = "pipe:///output/mpd_fifo?name=tts&initial-volume=60&sampleformat=44100:16:2&codec=flac"
-  stream = "pipe:///output/mopidy_fifo?name=Mopidy&initial-volume=60&sampleformat=44100:16:2&codec=flac"
-  stream = "spotify:///librespot?name=Spotify&verbose&cache=/tmp&device=Snapcast&bitrate=320&initial-volume=60&sampleformat=44100:16:2&codec=flac"
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
