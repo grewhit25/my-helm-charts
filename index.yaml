@@ -55,6 +55,21 @@ entries:
     urls:
     - https://github.com/grewhit25/my-helm-charts/releases/download/hue-mqtt-bridge-0.1.0/hue-mqtt-bridge-0.1.0.tgz
     version: 0.1.0
+  mpd:
+  - apiVersion: v2
+    appVersion: 0.0.1
+    created: "2020-07-11T21:09:39.7317602Z"
+    description: A Helm chart for Kubernetes
+    digest: 62454c86946a73ff0baa824ff3070f7231c924a61b0ce2cdc119f262f8a2d221
+    home: https://github.com/grewhit25/my-helm-charts
+    maintainers:
+    - email: grewhit25@gmail.com
+      name: grewhit25
+    name: mpd
+    type: application
+    urls:
+    - https://github.com/grewhit25/my-helm-charts/releases/download/mpd-0.1.0/mpd-0.1.0.tgz
+    version: 0.1.0
   snapcast-client:
   - apiVersion: v2
     appVersion: 0.20.0
@@ -113,6 +128,20 @@ entries:
     - https://github.com/grewhit25/my-helm-charts/releases/download/snapcast-client-0.1.4/snapcast-client-0.1.4.tgz
     version: 0.1.4
   snapcast-server:
+  - apiVersion: v2
+    appVersion: 0.20.0
+    created: "2020-07-11T21:09:39.868115803Z"
+    description: A Helm chart for Kubernetes
+    digest: fcceb9044fb36a1e5f94def83218c7cd81ea236cb275a2206cbd820e773488bd
+    home: https://github.com/grewhit25/my-helm-charts
+    maintainers:
+    - email: grewhit25@gmail.com
+      name: grewhit25
+    name: snapcast-server
+    type: application
+    urls:
+    - https://github.com/grewhit25/my-helm-charts/releases/download/snapcast-server-1.0.4/snapcast-server-1.0.4.tgz
+    version: 1.0.4
   - apiVersion: v2
     appVersion: 0.20.0
     created: "2020-07-10T15:25:39.674013773Z"
