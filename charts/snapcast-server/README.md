@@ -33,6 +33,7 @@ A Helm chart for Kubernetes
 | nameOverride | string | `""` |  |
 | nodeSelector | object | `{}` |  |
 | podSecurityContext | object | `{}` |  |
+| ports.client.port | int | `1704` |  |
 | ports.server.port | int | `1705` |  |
 | replicaCount | int | `1` |  |
 | resources | object | `{}` |  |
