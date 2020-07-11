@@ -33,7 +33,7 @@ securityContext: {}
 ports:
   mpd:
     port: 6600
-  
+
 service:
   type: ClusterIP
   annotations: {}
