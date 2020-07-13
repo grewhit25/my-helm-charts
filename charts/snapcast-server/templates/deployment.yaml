@@ -77,7 +77,8 @@ spec:
           {{- end }}
       volumes:
         - name: snapcast-mpd-fifo
-          emptyDir: {}
+          hostPath:
+            path: /tmp
         {{- if .Values.snapcast_serverConfig }}
         - name: snapcast-server-config
           configMap:
