@@ -58,6 +58,20 @@ entries:
   mpd:
   - apiVersion: v2
     appVersion: 0.0.1
+    created: "2020-07-13T12:24:04.566109494Z"
+    description: A Helm chart for Kubernetes
+    digest: b3f485d80b91d2995a5c174d7c6bccfa26e3608c5695a59b55359e9a086366a8
+    home: https://github.com/grewhit25/my-helm-charts
+    maintainers:
+    - email: grewhit25@gmail.com
+      name: grewhit25
+    name: mpd
+    type: application
+    urls:
+    - https://github.com/grewhit25/my-helm-charts/releases/download/mpd-0.1.1/mpd-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 0.0.1
     created: "2020-07-11T21:09:39.7317602Z"
     description: A Helm chart for Kubernetes
     digest: 62454c86946a73ff0baa824ff3070f7231c924a61b0ce2cdc119f262f8a2d221
@@ -128,6 +142,20 @@ entries:
     - https://github.com/grewhit25/my-helm-charts/releases/download/snapcast-client-0.1.4/snapcast-client-0.1.4.tgz
     version: 0.1.4
   snapcast-server:
+  - apiVersion: v2
+    appVersion: 0.20.0
+    created: "2020-07-13T12:24:04.710429468Z"
+    description: A Helm chart for Kubernetes
+    digest: 158b6c55f3896cd93e21d1875d933ecb72632681d6c683cfa1037f6464659c72
+    home: https://github.com/grewhit25/my-helm-charts
+    maintainers:
+    - email: grewhit25@gmail.com
+      name: grewhit25
+    name: snapcast-server
+    type: application
+    urls:
+    - https://github.com/grewhit25/my-helm-charts/releases/download/snapcast-server-1.0.5/snapcast-server-1.0.5.tgz
+    version: 1.0.5
   - apiVersion: v2
     appVersion: 0.20.0
     created: "2020-07-11T21:09:39.868115803Z"
