@@ -21,6 +21,10 @@ spec:
       serviceAccountName: {{ include "mpd.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+    {{- if .Values.hostNetwork }}
+      hostNetwork: {{ .Values.hostNetwork }}
+      dnsPolicy: ClusterFirstWithHostNet
+    {{ end }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
