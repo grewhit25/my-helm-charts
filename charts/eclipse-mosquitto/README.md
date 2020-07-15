@@ -1,6 +1,6 @@
 # eclipse-mosquitto
 
-![Version: 1.0.3](https://img.shields.io/badge/Version-1.0.3-informational?style=flat-square) ![AppVersion: 1.6.10](https://img.shields.io/badge/AppVersion-1.6.10-informational?style=flat-square)
+![Version: 1.0.4](https://img.shields.io/badge/Version-1.0.4-informational?style=flat-square) ![AppVersion: 1.6.10](https://img.shields.io/badge/AppVersion-1.6.10-informational?style=flat-square)
 
 A Helm chart for Eclipse Mosquitto
 
@@ -40,7 +40,7 @@ A Helm chart for Eclipse Mosquitto
 | persistence.annotations | object | `{}` |  |
 | persistence.enabled | bool | `false` |  |
 | persistence.size | string | `"1Gi"` |  |
-| persistence.storageClass | string | `"managed-nfs-storage"` |  |
+| persistence.storageClass | string | `"local-nfs-storage"` |  |
 | ports.mqtt.name | string | `"mqtt"` |  |
 | ports.mqtt.port | int | `1883` |  |
 | ports.mqtt.protocol | string | `"TCP"` |  |

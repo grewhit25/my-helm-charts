@@ -68,7 +68,7 @@ spec:
           volumeMounts:
             - name: snapcast-mpd-fifo
               mountPath: /output
-              subPath: mpd_fifo
+              #subPath: mpd_fifo
           {{- if .Values.snapcast_serverConfig }}
             - name: snapcast-server-config
               mountPath: /etc/snapserver.conf
@@ -76,9 +76,12 @@ spec:
               readOnly: true
           {{- end }}
       volumes:
-        - name: snapcast-mpd-fifo
-          hostPath:
+        - hostPath:
             path: /tmp
+          name: snapcast-mpd-fifo
+        #- name: snapcast-mpd-fifo
+        #  persistentVolumeClaim:
+        #    claimName: mpd-fifo
         {{- if .Values.snapcast_serverConfig }}
         - name: snapcast-server-config
           configMap:

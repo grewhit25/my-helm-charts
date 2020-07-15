@@ -105,7 +105,7 @@ persistence:
   accessMode: ReadWriteOnce
   size: 1Gi
   annotations: {}
-  storageClass: managed-nfs-storage
+  storageClass: local-nfs-storage
 
 ## Security context
 securityContext:
