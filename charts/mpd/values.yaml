@@ -12,6 +12,8 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+hostNetwork: true
+
 serviceAccount:
   # Specifies whether a service account should be created
   create: true
@@ -51,6 +53,26 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
+persistence:
+  enabled: true
+  ## home-assistant data Persistent Volume Storage Class
+  ## If defined, storageClassName: <storageClass>
+  ## If set to "-", storageClassName: "", which disables dynamic provisioning
+  ## If undefined (the default) or set to null, no storageClassName spec is
+  ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+  ##   GKE, AWS & OpenStack)
+  ##
+  storageClass: "local-nfs-storage"
+  ##
+  ## If you want to reuse an existing claim, you can pass the name of the PVC using
+  ## the existingClaim variable
+  # existingClaim: your-claim
+  ##
+  ## If you want to use a volume on the host machine instead of a PVC:
+  # hostPath: /path/to/the/config/folder
+  accessMode: ReadWriteMany
+  size: 2Mi
+
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
@@ -62,6 +84,7 @@ resources: {}
   # requests:
   #   cpu: 100m
   #   memory: 128Mi
+
 
 nodeSelector: {}
 

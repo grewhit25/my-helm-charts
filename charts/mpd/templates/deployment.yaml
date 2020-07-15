@@ -21,6 +21,10 @@ spec:
       serviceAccountName: {{ include "mpd.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+    {{- if .Values.hostNetwork }}
+      hostNetwork: {{ .Values.hostNetwork }}
+      dnsPolicy: ClusterFirstWithHostNet
+    {{ end }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -48,10 +52,26 @@ spec:
           volumeMounts:
             - name: snapcast-mpd-fifo
               mountPath: /output
-              subPath: mpd_fifo
+              #subPath: mpd_fifo
       volumes:
+        #- name: snapcast-mpd-fifo
+        #  emptyDir: {}
+        #- hostPath:
+        #    path: /tmp
+        #  name: snapcast-mpd-fifo
         - name: snapcast-mpd-fifo
+        {{- if .Values.persistence.enabled }}
+        {{- if .Values.persistence.hostPath }}
+          hostPath:
+            path: {{.Values.persistence.hostPath}}
+            type: Directory
+          {{- else }}
+          persistentVolumeClaim:
+            claimName: {{ if .Values.persistence.existingClaim }}{{ .Values.persistence.existingClaim }}{{- else }}{{ template "mpd.fullname" . }}{{- end }}
+          {{- end }}
+        {{- else }}
           emptyDir: {}
+        {{ end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
