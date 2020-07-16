@@ -41,24 +41,24 @@ spec:
           - name: {{ .Values.ports.websocket.name }}
             containerPort: {{ .Values.ports.websocket.port }}
             protocol: "TCP"
-          livenessProbe:
-            httpGet:
-              path: /healthz
-              port: 8091
-            failureThreshold: 2
-            initialDelaySeconds: 10
-            periodSeconds: 30
-            successThreshold: 1
-            timeoutSeconds: 5
-          readinessProbe:
-            httpGet:
-              path: /healthz
-              port: 8091
-            failureThreshold: 3
-            initialDelaySeconds: 10
-            periodSeconds: 10
-            successThreshold: 1
-            timeoutSeconds: 5
+          #livenessProbe:
+          #  httpGet:
+          #    path: /healthz
+          #    port: 8091
+          #  failureThreshold: 2
+          #  initialDelaySeconds: 10
+          #  periodSeconds: 30
+          #  successThreshold: 1
+          #  timeoutSeconds: 5
+          #readinessProbe:
+          #  httpGet:
+          #    path: /healthz
+          #    port: 8091
+          #  failureThreshold: 3
+          #  initialDelaySeconds: 10
+          #  periodSeconds: 10
+          #  successThreshold: 1
+          #  timeoutSeconds: 5
           volumeMounts:
             - name: mosquitto-conf
               mountPath: /mosquitto/config/mosquitto.conf
@@ -67,41 +67,9 @@ spec:
             - name: mosquitto-data
               mountPath: /mosquitto/data
               subPath: mosquitto/data
-            - name: mosquitto-ca-cert
-              mountPath: /mosquitto/config/certs/ca.crt
-              subPath: ca.crt
-              readOnly: true
-            - name: mosquitto-server-cert
-              mountPath: /mosquitto/config/certs/server.crt
-              subPath: server.crt
-              readOnly: true
-            - name: mosquitto-server-key
-              mountPath: /mosquitto/config/certs/server.key
-              subPath: server.key
-              readOnly: true
-        - name: liveness
-          image: "docker.io/grewhit25/healthcheck-server"
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
-      - name: mosquitto-ca-cert
-        configMap:
-          name: {{ include "eclipse-mosquitto.fullname" . }}-certs
-          items:
-            - key: ca.crt
-              path: ca.crt
-      - name: mosquitto-server-cert
-        configMap:
-          name: {{ include "eclipse-mosquitto.fullname" . }}-certs
-          items:
-              - key: server.crt
-                path: server.crt
-      - name: mosquitto-server-key
-        configMap:
-          name: {{ include "eclipse-mosquitto.fullname" . }}-certs
-          items:
-              - key: server.key
-                path: server.key
       - name: mosquitto-conf
         configMap:
           name: {{ include "eclipse-mosquitto.fullname" . }}-config
