@@ -36,10 +36,10 @@ ingress:
     - host: mqtt.server.local
       paths:
       - '/'
-  #tls:
-  #  - secretName: mqtt-server-ingress-tls
-  #    hosts:
-  #      - mqtt.server.local
+  # tls:
+  #   - secretName: mqtt-server-ingress-tls
+  #     hosts:
+  #       - mqtt.server.local
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
