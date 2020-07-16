@@ -81,7 +81,7 @@ spec:
           name: snapcast-mpd-fifo
         #- name: snapcast-mpd-fifo
         #  persistentVolumeClaim:
-        #    claimName: mpd-fifo
+        #    claimName: mpd-server
         {{- if .Values.snapcast_serverConfig }}
         - name: snapcast-server-config
           configMap:
