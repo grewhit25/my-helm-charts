@@ -67,6 +67,12 @@ spec:
             - name: mosquitto-data
               mountPath: /mosquitto/data
               subPath: mosquitto/data
+          {{- if .Values.passwdSecret }}
+            - name: passwd-secret
+              mountPath: /etc/mosquitto/passwd
+              subPath: passwd-secret
+              readOnly: true
+          {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
@@ -80,6 +86,11 @@ spec:
       {{- else }}
         emptyDir: {}
       {{- end -}}
+    {{- if .Values.passwdSecret }}
+      - name: passwd-secret
+        configMap:
+          name: {{ include "eclipse-mosquitto.fullname" . }}-config
+    {{- end -}}
     {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

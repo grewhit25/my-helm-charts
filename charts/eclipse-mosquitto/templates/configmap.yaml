@@ -7,3 +7,6 @@ metadata:
 data:
   mosquitto.conf: |-
     {{- .Values.config | nindent 4 }}
+  passwd-secret: |-
+    {{- .Values.passwdSecret | nindent 4 }}
+
