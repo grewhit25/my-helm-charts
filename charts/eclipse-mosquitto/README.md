@@ -1,6 +1,6 @@
 # eclipse-mosquitto
 
-![Version: 2.0.0](https://img.shields.io/badge/Version-2.0.0-informational?style=flat-square) ![AppVersion: 1.6.10](https://img.shields.io/badge/AppVersion-1.6.10-informational?style=flat-square)
+![Version: 2.1.0](https://img.shields.io/badge/Version-2.1.0-informational?style=flat-square) ![AppVersion: 1.6.10](https://img.shields.io/badge/AppVersion-1.6.10-informational?style=flat-square)
 
 A Helm chart for Eclipse Mosquitto
 
@@ -30,6 +30,7 @@ A Helm chart for Eclipse Mosquitto
 | ingress.hosts[0].paths[0] | string | `"/"` |  |
 | nameOverride | string | `""` |  |
 | nodeSelector | object | `{}` |  |
+| passwdSecret | string | `"username:password\n\n## Persist data to a persistent volume"` |  |
 | persistence.accessMode | string | `"ReadWriteOnce"` |  |
 | persistence.annotations | object | `{}` |  |
 | persistence.enabled | bool | `false` |  |

@@ -69,7 +69,10 @@ config: |-
   listener 9001
   protocol mqtt
 
-## Persist data to a persistent volume
+passwdSecret: |-
+  username:password
+
+  ## Persist data to a persistent volume
 persistence:
   enabled: false
   ## database data Persistent Volume Storage Class
