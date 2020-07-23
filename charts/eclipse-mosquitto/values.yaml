@@ -21,10 +21,12 @@ ports:
   mqtt:
     name: 'mqtt'
     port: 1883
+    # nodePort: 31883
     protocol: TCP
   websocket:
     name: 'websocket'
     port: 9001
+    # nodePort: 30901
     protocol: TCP
 
 ingress:
