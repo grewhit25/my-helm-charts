@@ -1,6 +1,6 @@
 {{- if .Values.ingress.enabled -}}
 {{- $fullName := include "eclipse-mosquitto.fullname" . -}}
-{{- $portName := .Values.ports.mqtt.port -}}
+{{- $portName := .Values.ports.websocket.port -}}
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:

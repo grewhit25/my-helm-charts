@@ -2,7 +2,7 @@ apiVersion: v1
 appVersion: "1.6.10"
 description: A Helm chart for Eclipse Mosquitto
 name: eclipse-mosquitto
-version: 2.1.0
+version: 2.1.1
 home: https://github.com/grewhit25/my-helm-charts
 maintainers:
   - name: grewhit25

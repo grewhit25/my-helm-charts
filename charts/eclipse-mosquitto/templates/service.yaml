@@ -16,6 +16,9 @@ spec:
       port: {{ $value.port }}
       targetPort: {{ $key }}
       protocol: {{ default "TCP" $value.protocol }}
+  {{ if (not (empty $value.nodePort)) }}
+      nodePort: {{ $value.nodePort }}
+  {{ end }}
   {{- end }}
 {{- end }}
   selector:
