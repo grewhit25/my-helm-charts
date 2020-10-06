@@ -6,7 +6,8 @@ replicaCount: 1
 
 image:
   repository: docker.io/grewhit25/debian-snapclient
-  pullPolicy: Always
+  tag: 0.21.0
+  pullPolicy: IfNotPresent
 
 imagePullSecrets: []
 nameOverride: ""
