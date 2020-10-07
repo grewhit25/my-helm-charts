@@ -6,7 +6,8 @@ replicaCount: 1
 
 image:
   repository: docker.io/grewhit25/debian-snapserver
-  pullPolicy: Always
+  tag: 0.21.0
+  pullPolicy: IfNotPresent
 
 imagePullSecrets: []
 nameOverride: ""
@@ -65,7 +66,6 @@ avahiEnabled: 'true'
 snapcast_serverConfig: |-
   [stream]
   stream = "pipe:///output/mpd_fifo?name=tts&initial-volume=60&sampleformat=44100:16:2&codec=flac"
-  stream = "pipe:///output/mopidy_fifo?name=Mopidy&initial-volume=60&sampleformat=44100:16:2&codec=flac"
   stream = "spotify:///librespot?name=Spotify&verbose&cache=/tmp&device=Snapcast&bitrate=320&initial-volume=60&sampleformat=44100:16:2&codec=flac"
 
 resources: {}
