@@ -152,6 +152,20 @@ entries:
     version: 0.1.0
   snapcast-client:
   - apiVersion: v2
+    appVersion: 0.22.0
+    created: "2020-10-16T10:54:29.800125096Z"
+    description: A Helm chart for Kubernetes
+    digest: a92b1a0105595b9a95896f052ce8e22b96112df808f8c19d6882a4e99bbd069f
+    home: https://github.com/grewhit25/my-helm-charts
+    maintainers:
+    - email: grewhit25@gmail.com
+      name: grewhit25
+    name: snapcast-client
+    type: application
+    urls:
+    - https://github.com/grewhit25/my-helm-charts/releases/download/snapcast-client-1.0.12/snapcast-client-1.0.12.tgz
+    version: 1.0.12
+  - apiVersion: v2
     appVersion: 0.21.0
     created: "2020-10-07T07:16:38.075224129Z"
     description: A Helm chart for Kubernetes
@@ -236,6 +250,20 @@ entries:
     - https://github.com/grewhit25/my-helm-charts/releases/download/snapcast-client-0.1.4/snapcast-client-0.1.4.tgz
     version: 0.1.4
   snapcast-server:
+  - apiVersion: v2
+    appVersion: 0.22.0
+    created: "2020-10-16T10:54:29.926367946Z"
+    description: A Helm chart for Kubernetes
+    digest: 3daa79234fac32fdd485a2032861944b57cae92716316878551e86f80b3886b1
+    home: https://github.com/grewhit25/my-helm-charts
+    maintainers:
+    - email: grewhit25@gmail.com
+      name: grewhit25
+    name: snapcast-server
+    type: application
+    urls:
+    - https://github.com/grewhit25/my-helm-charts/releases/download/snapcast-server-1.0.12/snapcast-server-1.0.12.tgz
+    version: 1.0.12
   - apiVersion: v2
     appVersion: 0.21.0
     created: "2020-10-07T07:16:38.174880767Z"
