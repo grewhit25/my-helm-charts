@@ -1,0 +1,85 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "snapcast-client.fullname" . }}
+  labels:
+    {{- include "snapcast-client.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "snapcast-client.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "snapcast-client.selectorLabels" . | nindent 8 }}
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      serviceAccountName: {{ include "snapcast-client.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+    {{- if .Values.hostNetwork }}
+      hostNetwork: {{ .Values.hostNetwork }}
+      dnsPolicy: ClusterFirstWithHostNet
+    {{ end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+        {{- if .Values.avahiEnabled }}
+          - name: ENABLEAVAHI
+            value: {{ .Values.avahiEnabled | quote }}
+        {{- end }}
+        {{- if .Values.pulseaudio.enabled }}
+          - name: {{ .Values.pulseaudio.name }}
+            value: {{ .Values.pulseaudio.server }}
+        {{ end }}
+        {{- if .Values.extraVars }}
+        {{- range $key, $value := .Values.extraVars }}
+          - name: {{ $key }}
+            value: "{{ $value }}"
+        {{- end }}
+        {{- end }}
+        {{- if .Values.probes.liveness.enabled }}
+          livenessProbe:
+            exec:
+              command: [ "check", "run", "-type", "liveness" ]
+            initialDelaySeconds: {{ .Values.probes.liveness.initialDelaySeconds }}
+            failureThreshold: {{ .Values.probes.liveness.failureThreshold }}
+            timeoutSeconds: {{ .Values.probes.liveness.timeoutSeconds }}
+        {{- end }}
+        {{- if .Values.probes.readiness.enabled }}
+          readinessProbe:
+            exec:
+              command: [ "check", "run", "-type", "liveness" ]
+            initialDelaySeconds: {{ .Values.probes.readiness.initialDelaySeconds }}
+            failureThreshold: {{ .Values.probes.readiness.failureThreshold }}
+            timeoutSeconds: {{ .Values.probes.readiness.timeoutSeconds }}
+        {{- end }}
+        {{- if .Values.probes.startup.enabled }}
+          startupProbe:
+            exec:
+              command: [ "check", "run", "-type", "liveness" ]
+            failureThreshold: {{ .Values.probes.startup.failureThreshold }}
+            periodSeconds: {{ .Values.probes.startup.periodSeconds }}
+        {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
