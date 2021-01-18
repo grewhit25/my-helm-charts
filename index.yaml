@@ -95,6 +95,20 @@ entries:
   hue-mqtt-bridge:
   - apiVersion: v2
     appVersion: 0.0.1
+    created: "2021-01-18T11:11:29.681604972Z"
+    description: A Helm chart for Kubernetes
+    digest: 7703dc320699109e3922fa03cc1e58bde091f5745d72105b7d17593522739d14
+    home: https://github.com/grewhit25/my-helm-charts
+    maintainers:
+    - email: grewhit25@gmail.com
+      name: grewhit25
+    name: hue-mqtt-bridge
+    type: application
+    urls:
+    - https://github.com/grewhit25/my-helm-charts/releases/download/hue-mqtt-bridge-0.1.1/hue-mqtt-bridge-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 0.0.1
     created: "2020-07-10T10:18:37.203693239Z"
     description: A Helm chart for Kubernetes
     digest: e0c57134918f9c5ede5689951b0899252a194e1afc31059200072fd6be35cfd0
